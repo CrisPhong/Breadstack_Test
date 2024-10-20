@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "3aad93da-d0c7-4a39-91f5-1fd3aeaa7da4",
+		"name": "Breadstack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39122932"
+	},
+	"item": [
+		{
+			"name": "Creat User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains status 'Created'\", function () {\r",
+							"    const responseStatusText = pm.response.status;\r",
+							"    pm.expect(responseStatusText).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has user ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"username\");\r",
+							"    pm.expect(jsonData).to.have.property(\"email\");\r",
+							"    pm.expect(jsonData).to.have.property(\"password\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let jsonData = pm.iterationData.toObject();\r",
+							"pm.variables.set(\"user_id\", jsonData.users.id);\r",
+							"pm.variables.set(\"user_username\", jsonData.users.username);\r",
+							"pm.variables.set(\"user_email\", jsonData.users.email);\r",
+							"pm.variables.set(\"user_password\", jsonData.users.password);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{user_id}}\",\r\n  \"username\": \"{{user_username}}\",\r\n  \"email\": \"{{user_email}}\",\r\n  \"password\": \"{{user_password}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains status 'OK'\", function () {\r",
+							"    const responseStatusText = pm.response.status;\r",
+							"    pm.expect(responseStatusText).to.equal(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has products\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array').that.is.not.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products?categoryId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "categoryId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains status 'Created'\", function () {\r",
+							"    const responseStatusText = pm.response.status;\r",
+							"    pm.expect(responseStatusText).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has order ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"name\");\r",
+							"    pm.expect(jsonData).to.have.property(\"description\");\r",
+							"    pm.expect(jsonData).to.have.property(\"price\");\r",
+							"    pm.expect(jsonData).to.have.property(\"stock\");\r",
+							"    pm.expect(jsonData).to.have.property(\"categoryId\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let jsonData = pm.iterationData.toObject();\r",
+							"pm.variables.set(\"product_id\", jsonData.products.id);\r",
+							"pm.variables.set(\"product_name\", jsonData.products.name);\r",
+							"pm.variables.set(\"product_description\", jsonData.products.description);\r",
+							"pm.variables.set(\"product_price\", jsonData.products.price);\r",
+							"pm.variables.set(\"product_stock\", jsonData.products.stock);\r",
+							"pm.variables.set(\"product_categoryId\", jsonData.products.categoryId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{product_id}}\",\r\n  \"name\": \"{{product_name}}\",\r\n  \"description\": \"{{product_description}}\",\r\n  \"price\": {{product_price}},\r\n  \"stock\": {{product_stock}},\r\n  \"categoryId\": {{product_categoryId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Write Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains status 'Created'\", function () {\r",
+							"    const responseStatusText = pm.response.status;\r",
+							"    pm.expect(responseStatusText).to.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has review ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"    pm.expect(jsonData).to.have.property(\"userId\");\r",
+							"    pm.expect(jsonData).to.have.property(\"productId\");\r",
+							"    pm.expect(jsonData).to.have.property(\"rating\");\r",
+							"    pm.expect(jsonData).to.have.property(\"comment\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let jsonData = pm.iterationData.toObject();\r",
+							"pm.variables.set(\"review_id\", jsonData.reviews.id);\r",
+							"pm.variables.set(\"review_userId\", jsonData.reviews.userId);\r",
+							"pm.variables.set(\"review_productId\", jsonData.reviews.productId);\r",
+							"pm.variables.set(\"review_rating\", jsonData.reviews.rating);\r",
+							"pm.variables.set(\"review_comment\", jsonData.reviews.comment);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{review_id}}\",\r\n  \"userId\": \"{{review_userId}}\",\r\n  \"productId\": \"{{review_productId}}\",\r\n  \"rating\": {{review_rating}},\r\n  \"comment\": \"{{review_comment}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

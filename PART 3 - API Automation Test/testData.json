@@ -1,0 +1,25 @@
+[
+  {
+    "users": {
+      "id": 3,
+      "username": "Cris",
+      "email": "cris@example.com",
+      "password": "securepassword"
+    },
+    "products": {
+      "id": 4,
+      "name": "iPhone 16 promax",
+      "description": "Latest Apple iPhone",
+      "price": 1000,
+      "stock": 20,
+      "categoryId": 1
+    },
+    "reviews": {
+      "id": 4,
+      "userId": 1,
+      "productId": 4,
+      "rating": 5,
+      "comment": "Good design"
+    }
+  }
+]
