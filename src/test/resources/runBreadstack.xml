@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="NopCommerce - User">
+
+    <test name="Run On CHROME">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="Breadstack.FormAuthentication"/>
+            <class name="Breadstack.Checkboxes"/>
+            <class name="Breadstack.Dropdown"/>
+            <class name="Breadstack.FileUploads"/>
+        </classes>
+    </test>
+
+</suite>
